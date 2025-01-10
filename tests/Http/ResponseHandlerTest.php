@@ -6,7 +6,7 @@ use GuzzleHttp\Psr7\Response as PsrResponse;
 use HetznerCloud\HttpClientUtilities\Contracts\ResponseValidatorContract;
 use HetznerCloud\HttpClientUtilities\Enums\MediaType;
 use HetznerCloud\HttpClientUtilities\Exceptions\UnserializableResponseException;
-use HetznerCloud\HttpClientUtilities\Http\ResponseHandler;
+use HetznerCloud\HttpClientUtilities\Http\Handlers\ResponseHandler;
 
 describe('ResponseHandler', function (): void {
     beforeEach(function (): void {

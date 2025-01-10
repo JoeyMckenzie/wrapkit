@@ -10,11 +10,12 @@ use HetznerCloud\HttpClientUtilities\Enums\MediaType;
 use HetznerCloud\HttpClientUtilities\Exceptions\ConnectorException;
 use HetznerCloud\HttpClientUtilities\Exceptions\UnserializableResponseException;
 use HetznerCloud\HttpClientUtilities\Http\Connector;
-use HetznerCloud\HttpClientUtilities\Http\ResponseHandler;
+use HetznerCloud\HttpClientUtilities\Http\Handlers\ResponseHandler;
 use HetznerCloud\HttpClientUtilities\Support\JsonResponseValidator;
 use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\BaseUri;
 use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Headers;
 use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\QueryParams;
+use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Response;
 use HetznerCloud\HttpClientUtilities\ValueObjects\Payload;
 use Psr\Http\Client\ClientInterface;
 
@@ -202,7 +203,7 @@ describe(Connector::class, function (): void {
                 $mockResponseHandler
             );
 
-            expect(fn (): ?\HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Response => $connector->requestData($payload))
+            expect(fn (): ?Response => $connector->requestData($payload))
                 ->toThrow(ConnectorException::class);
         });
 
@@ -238,7 +239,7 @@ describe(Connector::class, function (): void {
                 $mockResponseHandler
             );
 
-            expect(fn (): ?\HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Response => $connector->requestData($payload))
+            expect(fn (): ?Response => $connector->requestData($payload))
                 ->toThrow(UnserializableResponseException::class);
         });
 
@@ -264,7 +265,7 @@ describe(Connector::class, function (): void {
                 $mockResponseHandler
             );
 
-            expect(fn (): ?\HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Response => $connector->requestData($payload))
+            expect(fn (): ?Response => $connector->requestData($payload))
                 ->toThrow(ConnectorException::class);
         });
     });
