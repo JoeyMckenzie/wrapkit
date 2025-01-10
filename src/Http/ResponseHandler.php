@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace HetznerCloud\HttpClientUtilities\Http;
 
+use HetznerCloud\HttpClientUtilities\Contracts\ResponseHandlerContract;
 use HetznerCloud\HttpClientUtilities\Contracts\ResponseValidatorContract;
 use HetznerCloud\HttpClientUtilities\Exceptions\UnserializableResponseException;
 use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Response;
 use JsonException;
 use Psr\Http\Message\ResponseInterface;
 
-final readonly class ResponseHandler
+final readonly class ResponseHandler implements ResponseHandlerContract
 {
     public function __construct(
         private ResponseValidatorContract $validator

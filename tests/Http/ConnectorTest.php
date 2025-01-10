@@ -5,8 +5,10 @@ declare(strict_types=1);
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response as PsrResponse;
+use HetznerCloud\HttpClientUtilities\Contracts\ResponseHandlerContract;
 use HetznerCloud\HttpClientUtilities\Enums\MediaType;
 use HetznerCloud\HttpClientUtilities\Exceptions\ConnectorException;
+use HetznerCloud\HttpClientUtilities\Exceptions\UnserializableResponseException;
 use HetznerCloud\HttpClientUtilities\Http\Connector;
 use HetznerCloud\HttpClientUtilities\Http\ResponseHandler;
 use HetznerCloud\HttpClientUtilities\Support\JsonResponseValidator;
@@ -168,7 +170,7 @@ describe(Connector::class, function (): void {
                 ->toThrow(ConnectorException::class);
         });
 
-        it('wraps client exceptions with error responses', function (): void {
+        it('validates error responses for GuzzleHttp ClientException', function (): void {
             $payload = Payload::list('test.resource');
             $request = new Request('GET', 'https://hetzner.cloud/test.resource');
             $errorResponse = new PsrResponse(
@@ -185,7 +187,84 @@ describe(Connector::class, function (): void {
                     $errorResponse
                 ));
 
-            expect(fn () => $this->connector->requestData($payload))
+            // The test should verify that the response handler was called
+            $mockResponseHandler = Mockery::mock(ResponseHandlerContract::class);
+            $mockResponseHandler->shouldReceive('handle')
+                ->once()
+                ->with($errorResponse, false)
+                ->andReturn(null);
+
+            $connector = new Connector(
+                $this->client,
+                $this->baseUri,
+                $this->headers,
+                $this->queryParams,
+                $mockResponseHandler
+            );
+
+            expect(fn (): ?\HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Response => $connector->requestData($payload))
+                ->toThrow(ConnectorException::class);
+        });
+
+        it('validates error responses with invalid JSON', function (): void {
+            $payload = Payload::list('test.resource');
+            $request = new Request('GET', 'https://hetzner.cloud/test.resource');
+            $errorResponse = new PsrResponse(
+                400,
+                ['Content-Type' => MediaType::JSON->value],
+                'invalid json'
+            );
+
+            $this->client->shouldReceive('sendRequest')
+                ->once()
+                ->andThrow(new ClientException(
+                    'Error response',
+                    $request,
+                    $errorResponse
+                ));
+
+            // The test should verify that the response handler throws
+            $mockResponseHandler = Mockery::mock(ResponseHandlerContract::class);
+            $mockResponseHandler->shouldReceive('handle')
+                ->once()
+                ->with($errorResponse, false)
+                ->andThrow(new UnserializableResponseException(new JsonException));
+
+            $connector = new Connector(
+                $this->client,
+                $this->baseUri,
+                $this->headers,
+                $this->queryParams,
+                $mockResponseHandler
+            );
+
+            expect(fn (): ?\HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Response => $connector->requestData($payload))
+                ->toThrow(UnserializableResponseException::class);
+        });
+
+        it('distinguishes between GuzzleHttp ClientException and other ClientExceptionInterface', function (): void {
+            $payload = Payload::list('test.resource');
+
+            // Create a mock that implements ClientExceptionInterface but is not ClientException
+            $nonGuzzleException = new class extends Exception implements Psr\Http\Client\ClientExceptionInterface {};
+
+            $this->client->shouldReceive('sendRequest')
+                ->once()
+                ->andThrow($nonGuzzleException);
+
+            // The response handler should not be called in this case
+            $mockResponseHandler = Mockery::mock(ResponseHandlerContract::class);
+            $mockResponseHandler->shouldNotReceive('handle');
+
+            $connector = new Connector(
+                $this->client,
+                $this->baseUri,
+                $this->headers,
+                $this->queryParams,
+                $mockResponseHandler
+            );
+
+            expect(fn (): ?\HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Response => $connector->requestData($payload))
                 ->toThrow(ConnectorException::class);
         });
     });

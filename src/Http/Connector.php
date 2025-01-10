@@ -7,6 +7,7 @@ namespace HetznerCloud\HttpClientUtilities\Http;
 use Closure;
 use GuzzleHttp\Exception\ClientException;
 use HetznerCloud\HttpClientUtilities\Contracts\ConnectorContract;
+use HetznerCloud\HttpClientUtilities\Contracts\ResponseHandlerContract;
 use HetznerCloud\HttpClientUtilities\Exceptions\ConnectorException;
 use HetznerCloud\HttpClientUtilities\Exceptions\UnserializableResponseException;
 use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\BaseUri;
@@ -22,17 +23,17 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * An HTTP client connector orchestrating requests and responses to and from Bluesky.
  */
-final class Connector implements ConnectorContract
+final readonly class Connector implements ConnectorContract
 {
     /**
      * Creates a new Http connector instance.
      */
     public function __construct(
-        private readonly ClientInterface $client,
-        private readonly BaseUri $baseUri,
-        private readonly Headers $headers,
-        private readonly QueryParams $queryParams,
-        private readonly ResponseHandler $responseHandler,
+        private ClientInterface $client,
+        private BaseUri $baseUri,
+        private Headers $headers,
+        private QueryParams $queryParams,
+        private ResponseHandlerContract $responseHandler,
     ) {}
 
     /**
@@ -98,7 +99,7 @@ final class Connector implements ConnectorContract
     /**
      * Sends the composed request to the server.
      *
-     * @throws ConnectorException|UnserializableResponseException
+     * @throws UnserializableResponseException|ConnectorException
      */
     private function sendRequest(Closure $callable): ResponseInterface
     {
@@ -110,7 +111,7 @@ final class Connector implements ConnectorContract
         } catch (ClientExceptionInterface $clientException) {
             if ($clientException instanceof ClientException) {
                 $response = $clientException->getResponse();
-                $this->responseHandler->handle($response, false); // Validate error response
+                $this->responseHandler->handle($response, false);
             }
 
             throw new ConnectorException($clientException);
