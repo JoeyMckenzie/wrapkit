@@ -104,6 +104,38 @@ describe(Payload::class, function (): void {
                 ->and($result['key1'])->toBe('value1')
                 ->and($result['key2'])->toBe('value2');
         });
+
+        it('preserves base URI when adding query parameters', function (): void {
+            // Arrange
+            $baseUri = BaseUri::from('api.example.com');
+            $payload = Payload::list('test.resource', ['param' => 'value']);
+
+            // Act
+            $request = $payload->toRequest($baseUri, $this->headers, $this->queryParams);
+
+            // Assert
+            // This test will fail if $uri = '?' is used instead of $uri .= '?'
+            $uri = $request->getUri();
+            expect($uri->getPath())->toBe('/test.resource')
+                ->and($uri->getQuery())->toBe('param=value')
+                ->and($uri->getHost())->toBe('api.example.com');
+        });
+
+        it('correctly combines complex base URI with query parameters', function (): void {
+            // Arrange
+            $baseUri = BaseUri::from('api.example.com/v1/api');
+            $payload = Payload::list('test.resource', ['param' => 'value']);
+
+            // Act
+            $request = $payload->toRequest($baseUri, $this->headers, $this->queryParams);
+
+            // Assert
+            // This ensures the base path is preserved when query parameters are added
+            $uri = $request->getUri();
+            expect($uri->getPath())->toBe('/v1/api/test.resource')
+                ->and($uri->getQuery())->toBe('param=value')
+                ->and($uri->getHost())->toBe('api.example.com');
+        });
     });
 
     describe('POST requests', function (): void {
