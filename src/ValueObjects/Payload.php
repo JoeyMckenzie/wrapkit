@@ -135,10 +135,12 @@ final readonly class Payload
     {
         $psr17Factory = new Psr17Factory;
         $uri = "$baseUri$this->uri";
-        $queryParams = [...$queryParams->toArray(), ...$this->parameters];
 
-        if ($queryParams !== []) {
-            $uri .= '?'.http_build_query($queryParams);
+        if ($this->method === HttpMethod::GET) {
+            $queryParams = [...$queryParams->toArray(), ...$this->parameters];
+            if ($queryParams !== []) {
+                $uri .= '?'.http_build_query($queryParams);
+            }
         }
 
         $headers = $headers->withAccept($this->accept);

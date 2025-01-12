@@ -8,6 +8,6 @@
     </div>
 </div>
 
-# Hetzner Cloud PHP
+# Hetzner Cloud PHP HTTP Client Utilities
 
-A PHP client for the Hetzner Cloud API. Description coming soon™️...
+PHP client utilities for build HTTP APIs. Description coming soon™️...
