@@ -2,3 +2,8 @@ parameters:
     level: max
     paths:
         - src
+    ignoreErrors:
+        -
+            message: '#Trait HetznerCloud\\HttpClientUtilities\\Responses\\Concerns\\ArrayAccessible is used zero times and is not analysed.#'
+            identifier: trait.unused
+            path: src/Responses/Concerns/ArrayAccessible.php
