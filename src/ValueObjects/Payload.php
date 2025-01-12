@@ -15,8 +15,6 @@ use Psr\Http\Message\StreamInterface;
 
 /**
  * Payloads are sent to the server as an encapsulating HTTP request, with configurable headers, method, and parameters.
- *
- * @internal
  */
 final readonly class Payload
 {
@@ -58,7 +56,7 @@ final readonly class Payload
      *
      * @param  array<string, mixed>  $parameters
      */
-    public static function retrieve(string $resource, string $id, array $parameters = []): self
+    public static function retrieve(string $resource, string|int $id, array $parameters = []): self
     {
         $accept = MediaType::JSON;
         $method = HttpMethod::GET;
@@ -110,7 +108,7 @@ final readonly class Payload
     /**
      * Adds an optional query parameter to the payload. If the value is null, the parameter will be skipped.
      */
-    public function withOptionalQueryParameter(string $key, mixed $value): self
+    public function withOptionalParameter(string $key, mixed $value): self
     {
         if ($value === null) {
             return $this;

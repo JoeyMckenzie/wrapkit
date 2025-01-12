@@ -38,4 +38,6 @@ interface ConnectorContract
     public function getHeaders(): Headers;
 
     public function getBaseUri(): BaseUri;
+
+    public function getResponseHandler(): ResponseHandlerContract;
 }

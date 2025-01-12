@@ -49,7 +49,7 @@ final readonly class ResourceUri implements Stringable
     /**
      * Creates a new resource URI value object that retrieves the given resource.
      */
-    public static function retrieve(string $resource, string $id): self
+    public static function retrieve(string $resource, string|int $id): self
     {
         return new self("$resource/$id");
     }

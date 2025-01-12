@@ -416,8 +416,8 @@ describe(Payload::class, function (): void {
 
         // Act
         $newPayload = $payload
-            ->withOptionalQueryParameter('key2', 'value2')
-            ->withOptionalQueryParameter('key3', 'value3');
+            ->withOptionalParameter('key2', 'value2')
+            ->withOptionalParameter('key3', 'value3');
 
         $request = $newPayload->toRequest($this->baseUri, $this->headers, $this->queryParams);
 
@@ -436,8 +436,8 @@ describe(Payload::class, function (): void {
 
         // Act
         $newPayload = $payload
-            ->withOptionalQueryParameter('key2', null)
-            ->withOptionalQueryParameter('key3', 'value3');
+            ->withOptionalParameter('key2', null)
+            ->withOptionalParameter('key3', 'value3');
 
         $request = $newPayload->toRequest($this->baseUri, $this->headers, $this->queryParams);
 
@@ -455,7 +455,7 @@ describe(Payload::class, function (): void {
         $payload = Payload::list('test.resource', $baseParams);
 
         // Act
-        $newPayload = $payload->withOptionalQueryParameter('key2', 'value2');
+        $newPayload = $payload->withOptionalParameter('key2', 'value2');
 
         // Assert - original payload should be unchanged
         $originalRequest = $payload->toRequest($this->baseUri, $this->headers, $this->queryParams);
@@ -478,11 +478,11 @@ describe(Payload::class, function (): void {
 
         // Act
         $finalPayload = $payload
-            ->withOptionalQueryParameter('key1', 'value1')
-            ->withOptionalQueryParameter('key2', null)  // Should be skipped
-            ->withOptionalQueryParameter('key3', 'value3')
-            ->withOptionalQueryParameter('key4', null)  // Should be skipped
-            ->withOptionalQueryParameter('key5', 'value5');
+            ->withOptionalParameter('key1', 'value1')
+            ->withOptionalParameter('key2', null)  // Should be skipped
+            ->withOptionalParameter('key3', 'value3')
+            ->withOptionalParameter('key4', null)  // Should be skipped
+            ->withOptionalParameter('key5', 'value5');
 
         $request = $finalPayload->toRequest($this->baseUri, $this->headers, $this->queryParams);
 
@@ -501,7 +501,7 @@ describe(Payload::class, function (): void {
         $payload = Payload::list('test.resource', ['key1' => 'value1']);
 
         // Act
-        $result = $payload->withOptionalQueryParameter('key2', null);
+        $result = $payload->withOptionalParameter('key2', null);
 
         // Assert
         expect($result)->toBe($payload)  // Verify exact same instance is returned

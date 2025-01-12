@@ -25,9 +25,6 @@ use Psr\Http\Message\ResponseInterface;
  */
 final readonly class Connector implements ConnectorContract
 {
-    /**
-     * Creates a new Http connector instance.
-     */
     public function __construct(
         private ClientInterface $client,
         private BaseUri $baseUri,
@@ -40,7 +37,7 @@ final readonly class Connector implements ConnectorContract
      * {@inheritDoc}
      */
     #[Override]
-    public function makeRequest(Payload $payload, ?string $accessToken): ?Response
+    public function makeRequest(Payload $payload, ?string $accessToken = null): ?Response
     {
         return $accessToken === null
             ? $this->requestData($payload)
@@ -94,6 +91,12 @@ final readonly class Connector implements ConnectorContract
     public function getBaseUri(): BaseUri
     {
         return $this->baseUri;
+    }
+
+    #[Override]
+    public function getResponseHandler(): ResponseHandlerContract
+    {
+        return $this->responseHandler;
     }
 
     /**
