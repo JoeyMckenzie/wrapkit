@@ -134,6 +134,26 @@ describe(ClientRequestBuilder::class, function (): void {
                 ->and($uri->__toString())->toContain('?key=value'); // Verify query is properly appended
         });
 
+        it('skips adding null valued query params', function (): void {
+            // Arrange
+            $basePath = 'test.resource';
+            $builder = ClientRequestBuilder::get($basePath);
+
+            // Act - Test with single param to catch concatenation vs assignment
+            $requestWithParam = $builder
+                ->withQueryParam('key', 'value')
+                ->withQueryParam('null_param', null)
+                ->build();
+
+            // Assert
+            $uri = $requestWithParam->getUri();
+            expect($uri->getPath())->toBe($basePath) // Verify path is preserved
+                ->and($uri->getQuery())->toBe('key=value') // Verify query is added
+                ->and($uri->__toString())->toContain($basePath) // Verify full URI contains original path
+                ->and($uri->__toString())->toContain('?key=value')
+                ->and($uri->__toString())->not->toContain('null_param'); // Verify null-valued query params are not added
+        });
+
         it('properly handles empty vs non-empty query parameters', function (): void {
             // Arrange
             $builder = ClientRequestBuilder::get('test.resource');
