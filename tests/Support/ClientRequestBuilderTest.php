@@ -118,6 +118,69 @@ describe(ClientRequestBuilder::class, function (): void {
     });
 
     describe('query parameter handling', function (): void {
+        it('maintains base path when adding query parameters', function (): void {
+            // Arrange
+            $basePath = 'test.resource';
+            $builder = ClientRequestBuilder::get($basePath);
+
+            // Act - Test with single param to catch concatenation vs assignment
+            $requestWithParam = $builder->withQueryParam('key', 'value')->build();
+
+            // Assert
+            $uri = $requestWithParam->getUri();
+            expect($uri->getPath())->toBe($basePath) // Verify path is preserved
+                ->and($uri->getQuery())->toBe('key=value') // Verify query is added
+                ->and($uri->__toString())->toContain($basePath) // Verify full URI contains original path
+                ->and($uri->__toString())->toContain('?key=value'); // Verify query is properly appended
+        });
+
+        it('properly handles empty vs non-empty query parameters', function (): void {
+            // Arrange
+            $builder = ClientRequestBuilder::get('test.resource');
+
+            // Act & Assert - Empty array should not add query string
+            $requestEmpty = $builder->withQueryParams([])->build();
+            expect($requestEmpty->getUri()->__toString())->not->toContain('?');
+
+            // Act & Assert - Non-empty array should add query string
+            $requestWithParams = $builder->withQueryParams(['key' => 'value'])->build();
+            expect($requestWithParams->getUri()->__toString())
+                ->toContain('test.resource')
+                ->toContain('?')
+                ->toContain('key=value');
+
+            // This specifically tests the count() > 0 vs count() >= 0 mutation
+            $requestEmptyAfterNonEmpty = $builder
+                ->withQueryParams(['key' => 'value'])
+                ->withQueryParams([])
+                ->build();
+            expect($requestEmptyAfterNonEmpty->getUri()->__toString())
+                ->toContain('test.resource')
+                ->toContain('?')
+                ->toContain('key=value');
+        });
+
+        it('handles empty query parameters', function (): void {
+            // Arrange & Act
+            $request = ClientRequestBuilder::get('test.resource')
+                ->withQueryParams([])
+                ->build();
+
+            // Assert
+            expect($request->getUri()->getQuery())->toBe('')
+                ->and($request->getUri()->__toString())->not->toContain('?');
+        });
+
+        it('preserves resource path when query parameters are empty', function (): void {
+            // Arrange & Act
+            $builder = ClientRequestBuilder::get('test.resource');
+            $withEmpty = $builder->withQueryParams([])->build();
+            $withoutParams = $builder->build();
+
+            // Assert - Both should produce identical URIs
+            expect($withEmpty->getUri()->__toString())
+                ->toBe($withoutParams->getUri()->__toString());
+        });
         it('adds single query parameters', function (): void {
             // Arrange & Act
             $request = ClientRequestBuilder::get('test.resource')
@@ -182,6 +245,31 @@ describe(ClientRequestBuilder::class, function (): void {
     });
 
     describe('request content handling', function (): void {
+        it('handles empty request content', function (): void {
+            // Arrange & Act
+            $request = ClientRequestBuilder::post('test.resource')
+                ->withRequestContent([])
+                ->build();
+
+            // Assert
+            expect($request->getBody()->getContents())->toBe('')
+                ->and($request->hasHeader('Content-Type'))->toBeTrue();
+        });
+
+        it('preserves request structure with empty content', function (): void {
+            // Arrange
+            $builder = ClientRequestBuilder::post('test.resource');
+
+            // Act
+            $withEmpty = $builder->withRequestContent([])->build();
+            $withoutContent = $builder->build();
+
+            // Assert
+            expect($withEmpty->getUri()->__toString())
+                ->toBe($withoutContent->getUri()->__toString())
+                ->and($withEmpty->getHeaders())
+                ->toBe($withoutContent->getHeaders());
+        });
         it('adds request content to POST requests', function (): void {
             // Arrange
             $content = ['test' => 'value'];

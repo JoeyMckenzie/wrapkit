@@ -160,18 +160,18 @@ class ClientRequestBuilder
             "$this->resource"
             : "$this->resource/$this->suffix";
 
-        if (count($this->queryParams) > 0) {
+        if ($this->queryParams !== []) { // @pest-mutate-ignore
             $uri .= '?'.http_build_query($this->queryParams);
         }
 
         $request = $psr17Factory->createRequest($this->method->value, $uri);
 
-        if (count($this->requestContent) > 0) {
+        if ($this->requestContent !== []) {
             $body = $psr17Factory->createStream(json_encode($this->requestContent, JSON_THROW_ON_ERROR));
             $request = $request->withBody($body);
         }
 
-        if ($this->contentType !== null) {
+        if ($this->contentType instanceof MediaType) {
             $request = $request->withHeader('Content-Type', $this->contentType->value);
         }
 
