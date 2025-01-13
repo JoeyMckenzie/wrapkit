@@ -323,6 +323,83 @@ describe(Payload::class, function (): void {
         });
     });
 
+    describe('PUT requests', function (): void {
+        it('creates basic PUT requests', function (): void {
+            // Arrange
+            $params = ['test' => 'data'];
+
+            // Act
+            $payload = Payload::put('test.resource', 1, $params);
+            $request = $payload->toRequest($this->baseUri, $this->headers, $this->queryParams);
+
+            // Assert
+            expect($request->getMethod())->toBe(HttpMethod::PUT->value)
+                ->and($request->getUri()->getPath())->toBe('/test.resource/1')
+                ->and($request->hasHeader('Accept'))->toBeTrue()
+                ->and($request->getHeaderLine('Accept'))->toBe('application/json');
+
+            // Verify body
+            $body = $request->getBody()->getContents();
+            expect($body)->toBeJson()
+                ->and(json_decode($body, true))->toBe($params);
+        });
+
+        it('handles custom content type', function (): void {
+            // Arrange
+            $params = ['test' => 'data'];
+            $contentType = MediaType::MULTIPART;
+
+            // Act
+            $payload = Payload::put('test.resource', 1, $params, $contentType);
+            $request = $payload->toRequest($this->baseUri, $this->headers, $this->queryParams);
+
+            // Assert
+            expect($request->hasHeader('Content-Type'))->toBeTrue()
+                ->and($request->getHeaderLine('Content-Type'))->toBe(MediaType::MULTIPART->value);
+        });
+
+        it('handles custom headers', function (): void {
+            // Arrange
+            $params = ['test' => 'data'];
+            $customHeaders = ['X-Custom' => 'test-value'];
+
+            // Act
+            $payload = Payload::put('test.resource', 1, $params, null, $customHeaders);
+            $request = $payload->toRequest($this->baseUri, $this->headers, $this->queryParams);
+
+            // Assert
+            expect($request->hasHeader('X-Custom'))->toBeTrue()
+                ->and($request->getHeaderLine('X-Custom'))->toBe('test-value');
+        });
+    });
+
+    describe('DELETE requests', function (): void {
+        it('creates basic DELETE requests', function (): void {
+            // Arrange & Act
+            $payload = Payload::delete('test.resource', 1);
+            $request = $payload->toRequest($this->baseUri, $this->headers, $this->queryParams);
+
+            // Assert
+            expect($request->getMethod())->toBe(HttpMethod::DELETE->value)
+                ->and($request->getUri()->getPath())->toBe('/test.resource/1')
+                ->and($request->hasHeader('Accept'))->toBeTrue()
+                ->and($request->getHeaderLine('Accept'))->toBe('application/json');
+        });
+
+        it('handles custom headers', function (): void {
+            // Arrange
+            $customHeaders = ['X-Custom' => 'test-value'];
+
+            // Act
+            $payload = Payload::delete('test.resource', 1, $customHeaders);
+            $request = $payload->toRequest($this->baseUri, $this->headers, $this->queryParams);
+
+            // Assert
+            expect($request->hasHeader('X-Custom'))->toBeTrue()
+                ->and($request->getHeaderLine('X-Custom'))->toBe('test-value');
+        });
+    });
+
     describe('header handling', function (): void {
         it('combines headers from multiple sources', function (): void {
             // Arrange

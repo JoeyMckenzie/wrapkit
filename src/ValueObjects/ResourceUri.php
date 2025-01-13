@@ -35,6 +35,22 @@ final readonly class ResourceUri implements Stringable
     }
 
     /**
+     * Creates a new ResourceUri value object that creates the given resource.
+     */
+    public static function update(string $resource, string|int $id): self
+    {
+        return self::fromId($resource, $id);
+    }
+
+    /**
+     * Creates a new ResourceUri value object that creates the given resource.
+     */
+    public static function delete(string $resource, string|int $id): self
+    {
+        return self::fromId($resource, $id);
+    }
+
+    /**
      * Creates a new resource URI value object that lists the given resource.
      */
     public static function list(string $resource, ?string $suffix = null): self
@@ -50,6 +66,11 @@ final readonly class ResourceUri implements Stringable
      * Creates a new resource URI value object that retrieves the given resource.
      */
     public static function retrieve(string $resource, string|int $id): self
+    {
+        return self::fromId($resource, $id);
+    }
+
+    private static function fromId(string $resource, string|int $id): self
     {
         return new self("$resource/$id");
     }

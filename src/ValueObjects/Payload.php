@@ -106,6 +106,43 @@ final readonly class Payload
     }
 
     /**
+     * Creates a new Payload value object from the given parameters.
+     *
+     * @param  array<string, mixed>  $parameters
+     * @param  array<string, string>  $headers
+     */
+    public static function put(
+        string $resource,
+        string|int $id,
+        array $parameters,
+        ?MediaType $contentType = null,
+        ?array $headers = []): self
+    {
+        $accept = MediaType::JSON;
+        $method = HttpMethod::PUT;
+        $uri = ResourceUri::update($resource, $id);
+
+        return new self($accept, $method, $uri, $parameters, $contentType, $headers);
+    }
+
+    /**
+     * Creates a new Payload value object from the given parameters.
+     *
+     * @param  array<string, string>  $headers
+     */
+    public static function delete(
+        string $resource,
+        string|int $id,
+        ?array $headers = []): self
+    {
+        $accept = MediaType::JSON;
+        $method = HttpMethod::DELETE;
+        $uri = ResourceUri::update($resource, $id);
+
+        return new self($accept, $method, $uri, headers: $headers);
+    }
+
+    /**
      * Adds an optional query parameter to the payload. If the value is null, the parameter will be skipped.
      */
     public function withOptionalParameter(string $key, mixed $value): self
@@ -155,7 +192,14 @@ final readonly class Payload
             }
         }
 
-        $body = $this->method === HttpMethod::POST && $this->includeBody
+        $methodsThatCanContainBody = [
+            HttpMethod::POST,
+            HttpMethod::PUT,
+        ];
+
+        $methodCanContainBody = array_find($methodsThatCanContainBody, fn (HttpMethod $method): bool => $method === $this->method) !== null;
+
+        $body = $methodCanContainBody && $this->includeBody
             ? $psr17Factory->createStream(json_encode($this->parameters, JSON_THROW_ON_ERROR))
             : null;
         $request = $psr17Factory->createRequest($this->method->value, $uri);
