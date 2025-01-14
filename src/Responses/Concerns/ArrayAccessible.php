@@ -8,7 +8,7 @@ use BadMethodCallException;
 use HetznerCloud\HttpClientUtilities\ValueObjects\Response;
 
 /**
- * Allows API responses to be treated as arrays, allowing for access through an index to check for properties.
+ * Allows API responses to be treated as arrays, allowing for access through an index to check for properties and values.
  *
  * @template-covariant TArray of array
  *
