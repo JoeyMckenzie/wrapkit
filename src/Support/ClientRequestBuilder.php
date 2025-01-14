@@ -40,25 +40,21 @@ class ClientRequestBuilder
         private readonly HttpMethod $method,
         private readonly string $resource,
         private readonly MediaType $accept,
-        private readonly null|string|int $suffix = null,
+        private readonly ?string $suffix = null,
     ) {}
 
     /**
      * Creates a new builder instance for a GET request.
      */
-    public static function get(string $resource, null|string|int $suffix = null): self
+    public static function get(string $resource, ?string $suffix = null): self
     {
-        if (str_starts_with($resource, '/')) {
-            $resource = substr($resource, 1);
-        }
-
         return new self(HttpMethod::GET, $resource, MediaType::JSON, $suffix);
     }
 
     /**
      * Creates a new builder instance for a POST request.
      */
-    public static function post(string $resource): self
+    public static function post(string $resource, ?string $suffix = null): self
     {
         return new self(HttpMethod::POST, $resource, MediaType::JSON)->withContentType(MediaType::JSON);
     }
@@ -66,7 +62,7 @@ class ClientRequestBuilder
     /**
      * Creates a new builder instance for a PUT request.
      */
-    public static function put(string $resource, null|string|int $suffix = null): self
+    public static function put(string $resource, ?string $suffix = null): self
     {
         return new self(HttpMethod::PUT, $resource, MediaType::JSON, $suffix)->withContentType(MediaType::JSON);
     }
@@ -74,7 +70,7 @@ class ClientRequestBuilder
     /**
      * Creates a new builder instance for a DELETE request.
      */
-    public static function delete(string $resource, null|string|int $suffix = null): self
+    public static function delete(string $resource, ?string $suffix = null): self
     {
         return new self(HttpMethod::DELETE, $resource, MediaType::JSON, $suffix);
     }
@@ -169,9 +165,12 @@ class ClientRequestBuilder
     public function build(): RequestInterface
     {
         $psr17Factory = new Psr17Factory;
+        $resource = str_starts_with($this->resource, '/')
+            ? substr($this->resource, 1)
+            : $this->resource;
         $uri = $this->suffix === null ?
-            "$this->resource"
-            : "$this->resource/$this->suffix";
+            "$resource"
+            : "$resource/$this->suffix";
 
         if ($this->queryParams !== []) { // @pest-mutate-ignore
             $uri .= '?'.http_build_query($this->queryParams);
