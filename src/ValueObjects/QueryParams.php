@@ -40,6 +40,16 @@ final readonly class QueryParams implements Arrayable
         ]);
     }
 
+    public function contains(string $name): bool
+    {
+        return array_key_exists($name, $this->params);
+    }
+
+    public function hasAnyParams(): bool
+    {
+        return $this->params !== [];
+    }
+
     #[Override]
     public function toArray(): array
     {

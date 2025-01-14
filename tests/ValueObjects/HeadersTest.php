@@ -16,7 +16,22 @@ describe(Headers::class, function (): void {
 
         // Assert
         expect($headers->toArray())->toBe([])
-            ->and($headers)->toBeInstanceOf(Headers::class);
+            ->and($headers)->toBeInstanceOf(Headers::class)
+            ->and($headers->toArray())->toBe([])
+            ->and($headers->hasAnyHeaders())->toBeFalse();
+    });
+
+    it('verifies headers exist when added', function (): void {
+        // Arrange
+        $headers = Headers::create();
+
+        // Act
+        $result = $headers->withCustomHeader('X-Foo', 'bar');
+
+        // Assert
+        expect($result->toArray())->toBe(['X-Foo' => 'bar'])
+            ->and($result->hasAnyHeaders())->toBeTrue()
+            ->and($result->contains('X-Foo'))->toBeTrue();
     });
 
     describe('Accept header', function (): void {

@@ -15,7 +15,22 @@ describe(QueryParams::class, function (): void {
 
         // Assert
         expect($params->toArray())->toBe([])
-            ->and($params)->toBeInstanceOf(QueryParams::class);
+            ->and($params)->toBeInstanceOf(QueryParams::class)
+            ->and($params->toArray())->toBe([])
+            ->and($params->hasAnyParams())->toBeFalse();
+    });
+
+    it('verifies query params exist when added', function (): void {
+        // Arrange
+        $params = QueryParams::create();
+
+        // Act
+        $result = $params->withParam('foo', 'bar');
+
+        // Assert
+        expect($result->toArray())->toBe(['foo' => 'bar'])
+            ->and($result->hasAnyParams())->toBeTrue()
+            ->and($result->contains('foo'))->toBeTrue();
     });
 
     describe('string parameters', function (): void {

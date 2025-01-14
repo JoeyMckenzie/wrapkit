@@ -20,11 +20,11 @@ use Psr\Http\Message\ResponseInterface;
 final readonly class Connector implements ConnectorContract
 {
     public function __construct(
-        private ClientInterface $client,
-        private BaseUri $baseUri,
-        private Headers $headers,
-        private QueryParams $queryParams,
-        private ResponseHandlerContract $responseHandler,
+        public ClientInterface $client,
+        public BaseUri $baseUri,
+        public Headers $headers,
+        public QueryParams $queryParams,
+        public ResponseHandlerContract $responseHandler,
     ) {}
 
     public function sendClientRequest(ClientRequestBuilder $requestBuilder): Response

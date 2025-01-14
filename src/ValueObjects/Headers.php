@@ -71,6 +71,16 @@ final readonly class Headers implements Arrayable
         ]);
     }
 
+    public function contains(string $name): bool
+    {
+        return array_key_exists($name, $this->headers);
+    }
+
+    public function hasAnyHeaders(): bool
+    {
+        return $this->headers !== [];
+    }
+
     #[Override]
     public function toArray(): array
     {
