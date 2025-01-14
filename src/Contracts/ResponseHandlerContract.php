@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 interface ResponseHandlerContract
 {
     /**
-     * @return Response<array<array-key, mixed>>|null
+     * @return Response<array<array-key, mixed>>
      *
      * @throws UnserializableResponseException
      */
