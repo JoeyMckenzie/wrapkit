@@ -12,10 +12,8 @@ use Psr\Http\Message\RequestInterface;
 
 /**
  * A fluent builder for creating HTTP client requests with a chainable interface.
- *
- * @final
  */
-class ClientRequestBuilder
+final class ClientRequestBuilder
 {
     /**
      * @var array<string, string>
@@ -54,7 +52,7 @@ class ClientRequestBuilder
     /**
      * Creates a new builder instance for a POST request.
      */
-    public static function post(string $resource, ?string $suffix = null): self
+    public static function post(string $resource): self
     {
         return new self(HttpMethod::POST, $resource, MediaType::JSON)->withContentType(MediaType::JSON);
     }
