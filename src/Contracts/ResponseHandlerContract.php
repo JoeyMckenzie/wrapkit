@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace HetznerCloud\HttpClientUtilities\Contracts;
 
 use HetznerCloud\HttpClientUtilities\Exceptions\UnserializableResponseException;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Response;
+use HetznerCloud\HttpClientUtilities\ValueObjects\Response;
 use Psr\Http\Message\ResponseInterface;
 
 interface ResponseHandlerContract
@@ -15,5 +15,5 @@ interface ResponseHandlerContract
      *
      * @throws UnserializableResponseException
      */
-    public function handle(ResponseInterface $response, bool $skipResponse): ?Response;
+    public function handle(ResponseInterface $response): Response;
 }

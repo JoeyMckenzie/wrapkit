@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
+namespace Tests\ValueObjects;
+
 use HetznerCloud\HttpClientUtilities\Enums\MediaType;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Headers;
+use HetznerCloud\HttpClientUtilities\ValueObjects\Headers;
 
 covers(Headers::class);
 

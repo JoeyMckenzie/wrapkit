@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\QueryParams;
+namespace Tests\ValueObjects;
+
+use HetznerCloud\HttpClientUtilities\ValueObjects\QueryParams;
 
 covers(QueryParams::class);
 

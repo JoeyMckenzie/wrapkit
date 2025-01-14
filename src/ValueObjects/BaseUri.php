@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\ValueObjects\Connector;
+namespace HetznerCloud\HttpClientUtilities\ValueObjects;
 
 use Override;
 use Stringable;

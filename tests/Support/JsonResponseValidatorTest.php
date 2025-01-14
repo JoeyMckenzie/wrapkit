@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+namespace Tests\Support;
+
 use GuzzleHttp\Psr7\Response as PsrResponse;
 use HetznerCloud\HttpClientUtilities\Enums\MediaType;
 use HetznerCloud\HttpClientUtilities\Exceptions\UnserializableResponseException;
 use HetznerCloud\HttpClientUtilities\Support\JsonResponseValidator;
 
-describe('JsonResponseValidator', function (): void {
+describe(JsonResponseValidator::class, function (): void {
     beforeEach(function (): void {
         $this->validator = new JsonResponseValidator;
     });
@@ -24,31 +26,7 @@ describe('JsonResponseValidator', function (): void {
             ->toThrow(UnserializableResponseException::class);
     });
 
-    describe('status code handling', function (): void {
-        it('skips validation for status code 399', function (): void {
-            $response = new PsrResponse(
-                399,
-                ['Content-Type' => MediaType::JSON->value],
-                'invalid but ignored because status is 399'
-            );
-
-            expect(fn () => $this->validator->validate($response, $response->getBody()->getContents()))
-                ->not->toThrow(UnserializableResponseException::class);
-        });
-
-        it('validates response for status code 400', function (): void {
-            $response = new PsrResponse(
-                400,
-                ['Content-Type' => MediaType::JSON->value],
-                'invalid json'
-            );
-
-            expect(fn () => $this->validator->validate($response, $response->getBody()->getContents()))
-                ->toThrow(UnserializableResponseException::class);
-        });
-    });
-
-    it('skips validation for non-JSON content types', function (): void {
+    it('throws exceptions for non-JSON content types', function (): void {
         $response = new PsrResponse(
             400,
             ['Content-Type' => 'text/plain'],
@@ -56,7 +34,7 @@ describe('JsonResponseValidator', function (): void {
         );
 
         expect(fn () => $this->validator->validate($response, $response->getBody()->getContents()))
-            ->not->toThrow(UnserializableResponseException::class);
+            ->toThrow(UnserializableResponseException::class);
     });
 
     it('throws for invalid JSON with error status and JSON content type', function (): void {

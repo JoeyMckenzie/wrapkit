@@ -9,6 +9,4 @@ use Psr\Http\Message\ResponseInterface;
 interface ResponseValidatorContract
 {
     public function validate(ResponseInterface $response, string $contents): void;
-
-    public function shouldSkipValidation(ResponseInterface $response): bool;
 }

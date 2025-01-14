@@ -2,7 +2,12 @@
 
 declare(strict_types=1);
 
-use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Response;
+namespace Tests\ValueObjects;
+
+use HetznerCloud\HttpClientUtilities\ValueObjects\Response;
+use stdClass;
+
+covers(Response::class);
 
 describe('Response', function (): void {
     it('creates from empty array', function (): void {

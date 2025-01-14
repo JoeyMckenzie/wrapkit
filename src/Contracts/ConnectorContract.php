@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace HetznerCloud\HttpClientUtilities\Contracts;
 
-use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\BaseUri;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Headers;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Response;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Payload;
+use HetznerCloud\HttpClientUtilities\Support\ClientRequestBuilder;
+use HetznerCloud\HttpClientUtilities\ValueObjects\Response;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * A top-level client connector that represents communication methods with the API.
@@ -15,29 +14,14 @@ use HetznerCloud\HttpClientUtilities\ValueObjects\Payload;
 interface ConnectorContract
 {
     /**
-     * Sends a request to the server, determining if authentication is required.
+     * Sends a request to the server, returning the properly typed response.
      *
-     * @return null|Response<array<array-key, mixed>>
+     * @return Response<array<array-key, mixed>>
      */
-    public function makeRequest(Payload $payload, ?string $accessToken): ?Response;
+    public function sendClientRequest(ClientRequestBuilder $requestBuilder): Response;
 
     /**
-     * Sends a request to the server.
-     *
-     * @return null|Response<array<array-key, mixed>>
+     * Sends a request to the server, returning the raw response given back from the PSR request.
      */
-    public function requestData(Payload $payload): ?Response;
-
-    /**
-     * Sends a request to the server with an access token.
-     *
-     * @return null|Response<array<array-key, mixed>>
-     */
-    public function requestDataWithAccessToken(Payload $payload, string $accessToken): ?Response;
-
-    public function getHeaders(): Headers;
-
-    public function getBaseUri(): BaseUri;
-
-    public function getResponseHandler(): ResponseHandlerContract;
+    public function sendStandardClientRequest(ClientRequestBuilder $requestBuilder): ResponseInterface;
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\ValueObjects\Connector;
+namespace HetznerCloud\HttpClientUtilities\ValueObjects;
 
 /**
  * A value object for encapsulating response data generic over an array JSON object.

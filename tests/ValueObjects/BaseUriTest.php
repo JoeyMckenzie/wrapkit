@@ -2,64 +2,67 @@
 
 declare(strict_types=1);
 
-use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\BaseUri;
+namespace Tests\ValueObjects;
+
+use HetznerCloud\HttpClientUtilities\ValueObjects\BaseUri;
+use Stringable;
 
 covers(BaseUri::class);
 
 describe(BaseUri::class, function (): void {
     it('adds https protocol and trailing slash when no protocol is provided', function (): void {
         // Arrange
-        $rawUri = 'bsky.social';
+        $rawUri = 'hetzner.cloud';
 
         // Act
         $baseUri = BaseUri::from($rawUri);
 
         // Assert
-        expect((string) $baseUri)->toBe('https://bsky.social/');
+        expect((string) $baseUri)->toBe('https://hetzner.cloud/');
     });
 
     it('preserves http protocol and adds trailing slash', function (): void {
         // Arrange
-        $rawUri = 'http://bsky.social';
+        $rawUri = 'http://hetzner.cloud';
 
         // Act
         $baseUri = BaseUri::from($rawUri);
 
         // Assert
-        expect((string) $baseUri)->toBe('http://bsky.social/');
+        expect((string) $baseUri)->toBe('http://hetzner.cloud/');
     });
 
     it('preserves https protocol and adds trailing slash', function (): void {
         // Arrange
-        $rawUri = 'https://bsky.social';
+        $rawUri = 'https://hetzner.cloud';
 
         // Act
         $baseUri = BaseUri::from($rawUri);
 
         // Assert
-        expect((string) $baseUri)->toBe('https://bsky.social/');
+        expect((string) $baseUri)->toBe('https://hetzner.cloud/');
     });
 
     it('handles domains with existing trailing slash', function (): void {
         // Arrange
-        $rawUri = 'bsky.social/';
+        $rawUri = 'hetzner.cloud/';
 
         // Act
         $baseUri = BaseUri::from($rawUri);
 
         // Assert
-        expect((string) $baseUri)->toBe('https://bsky.social/');
+        expect((string) $baseUri)->toBe('https://hetzner.cloud/');
     });
 
     it('handles domains with subdirectories', function (): void {
         // Arrange
-        $rawUri = 'bsky.social/api/v1';
+        $rawUri = 'hetzner.cloud/api/v1';
 
         // Act
         $baseUri = BaseUri::from($rawUri);
 
         // Assert
-        expect((string) $baseUri)->toBe('https://bsky.social/api/v1/');
+        expect((string) $baseUri)->toBe('https://hetzner.cloud/api/v1/');
     });
 
     it('handles domains with port numbers', function (): void {
@@ -76,15 +79,15 @@ describe(BaseUri::class, function (): void {
     describe('string conversion', function (): void {
         it('implements Stringable interface correctly', function (): void {
             // Arrange
-            $baseUri = BaseUri::from('bsky.social');
+            $baseUri = BaseUri::from('hetzner.cloud');
 
             // Act
             $toString = $baseUri->__toString();
             $castString = (string) $baseUri;
 
             // Assert
-            expect($toString)->toBe('https://bsky.social/')
-                ->and($castString)->toBe('https://bsky.social/')
+            expect($toString)->toBe('https://hetzner.cloud/')
+                ->and($castString)->toBe('https://hetzner.cloud/')
                 ->and($baseUri)->toBeInstanceOf(Stringable::class);
         });
     });

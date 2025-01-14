@@ -6,7 +6,7 @@ namespace HetznerCloud\HttpClientUtilities\Support;
 
 use HetznerCloud\HttpClientUtilities\Enums\HttpMethod;
 use HetznerCloud\HttpClientUtilities\Enums\MediaType;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Headers;
+use HetznerCloud\HttpClientUtilities\ValueObjects\BaseUri;
 use Http\Discovery\Psr17Factory;
 use Psr\Http\Message\RequestInterface;
 
@@ -34,17 +34,19 @@ class ClientRequestBuilder
 
     private ?MediaType $contentType = null;
 
+    private ?BaseUri $baseUri = null;
+
     private function __construct(
         private readonly HttpMethod $method,
         private readonly string $resource,
         private readonly MediaType $accept,
-        private readonly ?string $suffix = null,
+        private readonly null|string|int $suffix = null,
     ) {}
 
     /**
      * Creates a new builder instance for a GET request.
      */
-    public static function get(string $resource, ?string $suffix = null): self
+    public static function get(string $resource, null|string|int $suffix = null): self
     {
         if (str_starts_with($resource, '/')) {
             $resource = substr($resource, 1);
@@ -64,17 +66,17 @@ class ClientRequestBuilder
     /**
      * Creates a new builder instance for a PUT request.
      */
-    public static function put(string $resource): self
+    public static function put(string $resource, null|string|int $suffix = null): self
     {
-        return new self(HttpMethod::PUT, $resource, MediaType::JSON)->withContentType(MediaType::JSON);
+        return new self(HttpMethod::PUT, $resource, MediaType::JSON, $suffix)->withContentType(MediaType::JSON);
     }
 
     /**
      * Creates a new builder instance for a DELETE request.
      */
-    public static function delete(string $resource): self
+    public static function delete(string $resource, null|string|int $suffix = null): self
     {
-        return new self(HttpMethod::DELETE, $resource, MediaType::JSON);
+        return new self(HttpMethod::DELETE, $resource, MediaType::JSON, $suffix);
     }
 
     /**
@@ -96,6 +98,17 @@ class ClientRequestBuilder
     {
         $clone = clone $this;
         $clone->contentType = $contentType;
+
+        return $clone;
+    }
+
+    /**
+     * Sets the content type of the request.
+     */
+    public function withBaseUri(BaseUri $baseUri): self
+    {
+        $clone = clone $this;
+        $clone->baseUri = $baseUri;
 
         return $clone;
     }
@@ -164,7 +177,8 @@ class ClientRequestBuilder
             $uri .= '?'.http_build_query($this->queryParams);
         }
 
-        $request = $psr17Factory->createRequest($this->method->value, $uri);
+        $url = "$this->baseUri$uri";
+        $request = $psr17Factory->createRequest($this->method->value, $url);
 
         if ($this->requestContent !== []) {
             $body = $psr17Factory->createStream(json_encode($this->requestContent, JSON_THROW_ON_ERROR));

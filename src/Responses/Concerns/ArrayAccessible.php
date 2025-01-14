@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace HetznerCloud\HttpClientUtilities\Responses\Concerns;
 
 use BadMethodCallException;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Connector\Response;
+use HetznerCloud\HttpClientUtilities\ValueObjects\Response;
 
 /**
  * Allows API responses to be treated as arrays, allowing for access through an index to check for properties.
