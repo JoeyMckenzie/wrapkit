@@ -36,7 +36,8 @@
         "guzzlehttp/guzzle": "^7.9",
         "vlucas/phpdotenv": "^5.6",
         "mockery/mockery": "^1.6",
-        "pestphp/pest-plugin-watch": "^3.0"
+        "pestphp/pest-plugin-watch": "^3.0",
+        "peckphp/peck": "^0.1"
     },
     "scripts": {
         "prepare": "git config core.hookspath .githooks && lefthook install",
@@ -46,26 +47,40 @@
         "test:watch": "vendor/bin/pest --watch --parallel --mutate",
         "test:types": "vendor/bin/pest --type-coverage --min=100 --parallel",
         "test:mutate": "vendor/bin/pest --mutate --min=100 --parallel",
-        "test:integration": "php examples/testing.php",
+        "test:ci": "vendor/bin/pest --mutate --min=100 --parallel --ci",
         "test": [
             "@test:mutate",
             "@test:coverage"
         ],
         "fmt": "vendor/bin/pint",
-        "fmt:test": "./vendor/bin/pint --test",
+        "fmt:test": "vendor/bin/pint --test",
         "lint": "vendor/bin/phpstan analyze",
         "lint:watch": "find src phpstan.neon.dist | entr -s \"composer run lint\"",
+        "lint:clear": "vendor/bin/phpstan clear-result-cache",
         "refactor": "vendor/bin/rector process",
         "refactor:test": "vendor/bin/rector process --dry-run",
+        "typos": "vendor/bin/peck",
         "check": [
             "@test",
             "@fmt:test",
             "@lint",
-            "@refactor:test"
+            "@refactor:test",
+            "@typos"
         ],
         "fix": [
             "@refactor",
             "@fmt"
+        ],
+        "prep": [
+            "@fix",
+            "@check"
+        ],
+        "ci": [
+            "@lint",
+            "@fmt:test",
+            "@refactor:test",
+            "@test:ci",
+            "@typos"
         ]
     },
     "config": {
