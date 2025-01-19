@@ -33,7 +33,7 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: xdebug
 
-      - name: Install dependencies
+      - name: Install composer dependencies
         run: |
           composer require --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
