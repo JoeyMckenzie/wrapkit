@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HetznerCloud\HttpClientUtilities\Http;
 
+use Crell\Serde\Serde;
+use Crell\Serde\SerdeCommon;
 use HetznerCloud\HttpClientUtilities\Contracts\ConnectorContract;
 use HetznerCloud\HttpClientUtilities\Contracts\ResponseHandlerContract;
 use HetznerCloud\HttpClientUtilities\Support\ClientRequestBuilder;
@@ -17,15 +19,18 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * An HTTP client connector orchestrating requests and responses to and from an API.
  */
-final readonly class Connector implements ConnectorContract
+final class Connector implements ConnectorContract
 {
     public function __construct(
-        public ClientInterface $client,
-        public BaseUri $baseUri,
-        public Headers $headers,
-        public QueryParams $queryParams,
-        public ResponseHandlerContract $responseHandler,
-    ) {}
+        public readonly ClientInterface $client,
+        public readonly BaseUri $baseUri,
+        public readonly Headers $headers,
+        public readonly QueryParams $queryParams,
+        public readonly ResponseHandlerContract $responseHandler,
+        private ?Serde $serde = null
+    ) {
+        $this->serde ??= new SerdeCommon;
+    }
 
     public function sendClientRequest(ClientRequestBuilder $requestBuilder): Response
     {
@@ -38,6 +43,13 @@ final readonly class Connector implements ConnectorContract
         $response = $this->client->sendRequest($request);
 
         return $this->responseHandler->handle($response);
+    }
+
+    public function sendStandardClientRequestWithType(ClientRequestBuilder $requestBuilder, string $class): mixed
+    {
+        $response = $this->sendStandardClientRequest($requestBuilder);
+
+        return $this->serde?->deserialize($response->getBody()->getContents(), 'json', $class);
     }
 
     public function sendStandardClientRequest(ClientRequestBuilder $requestBuilder): ResponseInterface

@@ -24,4 +24,11 @@ interface ConnectorContract
      * Sends a request to the server, returning the raw response given back from the PSR request.
      */
     public function sendStandardClientRequest(ClientRequestBuilder $requestBuilder): ResponseInterface;
+
+    /**
+     * Sends a request to the server, returning the raw response given back from the PSR request.
+     *
+     * @param  class-string  $class
+     */
+    public function sendStandardClientRequestWithType(ClientRequestBuilder $requestBuilder, string $class): mixed;
 }
