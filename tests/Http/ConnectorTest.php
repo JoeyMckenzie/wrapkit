@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Tests;
+
 use GuzzleHttp\Psr7\Response as PsrResponse;
 use HetznerCloud\HttpClientUtilities\Contracts\ResponseHandlerContract;
 use HetznerCloud\HttpClientUtilities\Http\Connector;

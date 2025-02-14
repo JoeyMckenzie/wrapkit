@@ -7,3 +7,11 @@ parameters:
             message: '#Trait HetznerCloud\\HttpClientUtilities\\Responses\\Concerns\\ArrayAccessible is used zero times and is not analysed.#'
             identifier: trait.unused
             path: src/Responses/Concerns/ArrayAccessible.php
+        -
+            message: '#Trait HetznerCloud\\HttpClientUtilities\\Testing\\Concerns\\Fakeable is used zero times and is not analysed.#'
+            identifier: trait.unused
+            path: src/Testing/Concerns/Fakeable.php
+        -
+            message: '#Trait HetznerCloud\\HttpClientUtilities\\Testing\\Concerns\\Testable is used zero times and is not analysed.#'
+            identifier: trait.unused
+            path: src/Testing/Concerns/Testable.php

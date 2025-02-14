@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace HetznerCloud\HttpClientUtilities\Http;
 
-use Crell\Serde\Serde;
-use Crell\Serde\SerdeCommon;
 use HetznerCloud\HttpClientUtilities\Contracts\ConnectorContract;
 use HetznerCloud\HttpClientUtilities\Contracts\ResponseHandlerContract;
 use HetznerCloud\HttpClientUtilities\Support\ClientRequestBuilder;
@@ -15,21 +13,21 @@ use HetznerCloud\HttpClientUtilities\ValueObjects\QueryParams;
 use HetznerCloud\HttpClientUtilities\ValueObjects\Response;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
+use RuntimeException;
 
 /**
  * An HTTP client connector orchestrating requests and responses to and from an API.
  */
-final class Connector implements ConnectorContract
+final readonly class Connector implements ConnectorContract
 {
     public function __construct(
-        public readonly ClientInterface $client,
-        public readonly BaseUri $baseUri,
-        public readonly Headers $headers,
-        public readonly QueryParams $queryParams,
-        public readonly ResponseHandlerContract $responseHandler,
-        private ?Serde $serde = null
+        public ClientInterface $client,
+        public BaseUri $baseUri,
+        public Headers $headers,
+        public QueryParams $queryParams,
+        public ResponseHandlerContract $responseHandler,
     ) {
-        $this->serde ??= new SerdeCommon;
+        //
     }
 
     public function sendClientRequest(ClientRequestBuilder $requestBuilder): Response
@@ -47,9 +45,7 @@ final class Connector implements ConnectorContract
 
     public function sendStandardClientRequestWithType(ClientRequestBuilder $requestBuilder, string $class): mixed
     {
-        $response = $this->sendStandardClientRequest($requestBuilder);
-
-        return $this->serde?->deserialize($response->getBody()->getContents(), 'json', $class);
+        throw new RuntimeException('Not implemented, may come in a future release.');
     }
 
     public function sendStandardClientRequest(ClientRequestBuilder $requestBuilder): ResponseInterface
