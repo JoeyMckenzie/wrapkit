@@ -1,5 +1,11 @@
 d# Changelog
 
+## v0.1.11 - 2025-02-14
+
+### What's new?
+
+- Fixes an issue with the resource name in the client fake testing utilities
+
 ## v0.1.10 - 2025-02-14
 
 ### What's new?
