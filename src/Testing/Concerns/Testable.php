@@ -23,12 +23,12 @@ trait Testable
 
     public function assertSent(?callable $callback = null): void
     {
-        $this->proxy->assertSent($this->resource, $callback);
+        $this->proxy->assertSent($this->resource(), $callback);
     }
 
     public function assertNotSent(?callable $callback = null): void
     {
-        $this->proxy->assertNotSent($this->resource, $callback);
+        $this->proxy->assertNotSent($this->resource(), $callback);
     }
 
     /**
