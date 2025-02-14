@@ -1,5 +1,12 @@
 d# Changelog
 
+## v0.1.10 - 2025-02-14
+
+### What's new?
+
+- Syncs changes from previous release
+- Adds support for PHP 8.3
+
 ## v0.1.9 - 2025-02-14
 
 ### What's new?
