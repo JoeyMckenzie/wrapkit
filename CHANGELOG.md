@@ -1,5 +1,13 @@
 d# Changelog
 
+## 0.1.13 - 2025-06-26
+
+### What's new?
+
+- Fixes an issue that allows for `null` values in testing fakes
+
+**Full Changelog**: https://github.com/JoeyMckenzie/wrapkit/compare/v0.1.12...0.1.13
+
 ## v0.1.12 - 2025-06-26
 
 ### What's Changed
