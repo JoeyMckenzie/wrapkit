@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\ValueObjects;
 
-use Wrapkit\ValueObjects\BaseUri;
 use Stringable;
+use Wrapkit\ValueObjects\BaseUri;
 
 covers(BaseUri::class);
 

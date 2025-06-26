@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\ValueObjects;
 
-use Wrapkit\ValueObjects\Response;
 use stdClass;
+use Wrapkit\ValueObjects\Response;
 
 covers(Response::class);
 

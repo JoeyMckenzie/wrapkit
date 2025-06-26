@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\ValueObjects;
 
+use Psr\Http\Message\RequestInterface;
 use Wrapkit\Enums\MediaType;
 use Wrapkit\Support\ClientRequestBuilder;
 use Wrapkit\ValueObjects\BaseUri;
-use Psr\Http\Message\RequestInterface;
 
 covers(ClientRequestBuilder::class);
 

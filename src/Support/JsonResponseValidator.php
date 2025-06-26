@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Wrapkit\Support;
 
-use Wrapkit\Contracts\ResponseValidatorContract;
-use Wrapkit\Exceptions\UnserializableResponseException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface;
+use Wrapkit\Contracts\ResponseValidatorContract;
+use Wrapkit\Exceptions\UnserializableResponseException;
 
 final class JsonResponseValidator implements ResponseValidatorContract
 {

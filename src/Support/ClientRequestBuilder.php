@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Wrapkit\Support;
 
+use Http\Discovery\Psr17Factory;
+use Psr\Http\Message\RequestInterface;
 use Wrapkit\Enums\HttpMethod;
 use Wrapkit\Enums\MediaType;
 use Wrapkit\ValueObjects\BaseUri;
-use Http\Discovery\Psr17Factory;
-use Psr\Http\Message\RequestInterface;
 
 /**
  * A fluent builder for creating HTTP client requests with a chainable interface.

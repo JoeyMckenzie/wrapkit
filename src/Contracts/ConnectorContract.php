@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Wrapkit\Contracts;
 
+use Psr\Http\Message\ResponseInterface;
 use Wrapkit\Support\ClientRequestBuilder;
 use Wrapkit\ValueObjects\Response;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * A top-level client connector that represents communication methods with the API.

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Wrapkit\Testing;
 
 use Exception;
-use Wrapkit\Contracts\ResponseContract;
 use PHPUnit\Framework\Assert as PHPUnit;
 use Throwable;
+use Wrapkit\Contracts\ResponseContract;
 
 final class ClientProxyFake
 {

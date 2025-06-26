@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Wrapkit\Testing\Concerns;
 
+use RuntimeException;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Testing\ClientProxyFake;
 use Wrapkit\Testing\TestRequest;
-use RuntimeException;
 
 /**
  * @template TArray of array

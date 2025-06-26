@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Wrapkit\ValueObjects;
 
-use Wrapkit\Contracts\Concerns\Arrayable;
 use Override;
+use Wrapkit\Contracts\Concerns\Arrayable;
 
 /**
  * A value object for encapsulating one or many query parameters included on the request.

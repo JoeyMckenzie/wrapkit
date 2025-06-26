@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Wrapkit\Contracts;
 
+use Psr\Http\Message\ResponseInterface;
 use Wrapkit\Exceptions\UnserializableResponseException;
 use Wrapkit\ValueObjects\Response;
-use Psr\Http\Message\ResponseInterface;
 
 interface ResponseHandlerContract
 {

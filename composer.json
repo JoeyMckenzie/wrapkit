@@ -49,7 +49,7 @@
         "peckphp/peck": "^0.1"
     },
     "scripts": {
-        "prepare": "git config core.hookspath .githooks && lefthook install",
+        "prepare": "git config core.hookspath .githooks",
         "test:unit": "vendor/bin/pest --parallel",
         "test:uwatch": "vendor/bin/pest --parallel --watch",
         "test:coverage": "vendor/bin/pest --coverage --parallel",

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Wrapkit\Http;
 
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
+use RuntimeException;
 use Wrapkit\Contracts\ConnectorContract;
 use Wrapkit\Contracts\ResponseHandlerContract;
 use Wrapkit\Support\ClientRequestBuilder;
@@ -11,9 +14,6 @@ use Wrapkit\ValueObjects\BaseUri;
 use Wrapkit\ValueObjects\Headers;
 use Wrapkit\ValueObjects\QueryParams;
 use Wrapkit\ValueObjects\Response;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\ResponseInterface;
-use RuntimeException;
 
 /**
  * An HTTP client connector orchestrating requests and responses to and from an API.

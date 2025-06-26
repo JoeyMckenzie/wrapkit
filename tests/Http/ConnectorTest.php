@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Tests;
 
 use GuzzleHttp\Psr7\Response as PsrResponse;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Wrapkit\Contracts\ResponseHandlerContract;
 use Wrapkit\Http\Connector;
 use Wrapkit\Support\ClientRequestBuilder;
@@ -12,9 +15,6 @@ use Wrapkit\ValueObjects\BaseUri;
 use Wrapkit\ValueObjects\Headers;
 use Wrapkit\ValueObjects\QueryParams;
 use Wrapkit\ValueObjects\Response;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 
 covers(Connector::class);
 

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Tests\Testing;
 
 use Exception;
+use PHPUnit\Framework\ExpectationFailedException;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Testing\ClientProxyFake;
 use Wrapkit\Testing\TestRequest;
-use PHPUnit\Framework\ExpectationFailedException;
 
 covers(ClientProxyFake::class);
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Wrapkit\ValueObjects;
 
+use Override;
 use Wrapkit\Contracts\Concerns\Arrayable;
 use Wrapkit\Enums\MediaType;
-use Override;
 
 /**
  * A value object for encapsulating headers to be used on requests.

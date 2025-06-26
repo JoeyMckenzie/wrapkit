@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Wrapkit\Http\Handlers;
 
+use JsonException;
+use Psr\Http\Message\ResponseInterface;
 use Wrapkit\Contracts\ResponseHandlerContract;
 use Wrapkit\Exceptions\UnserializableResponseException;
 use Wrapkit\ValueObjects\Response;
-use JsonException;
-use Psr\Http\Message\ResponseInterface;
 
 final readonly class JsonResponseHandler implements ResponseHandlerContract
 {
