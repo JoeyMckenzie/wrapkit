@@ -1,5 +1,14 @@
 d# Changelog
 
+## v0.1.12 - 2025-06-26
+
+### What's Changed
+
+- Rebranding to wrapkit
+- Minor spring cleaning around the repo
+
+**Full Changelog**: https://github.com/JoeyMckenzie/wrapkit/compare/0.1.11...v0.1.12
+
 ## v0.1.11 - 2025-02-14
 
 ### What's new?
