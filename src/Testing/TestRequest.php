@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Testing;
+namespace Wrapkit\Testing;
 
 final readonly class TestRequest
 {

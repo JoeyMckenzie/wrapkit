@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\ValueObjects;
 
-use HetznerCloud\HttpClientUtilities\Enums\MediaType;
-use HetznerCloud\HttpClientUtilities\Support\ClientRequestBuilder;
-use HetznerCloud\HttpClientUtilities\ValueObjects\BaseUri;
+use Wrapkit\Enums\MediaType;
+use Wrapkit\Support\ClientRequestBuilder;
+use Wrapkit\ValueObjects\BaseUri;
 use Psr\Http\Message\RequestInterface;
 
 covers(ClientRequestBuilder::class);

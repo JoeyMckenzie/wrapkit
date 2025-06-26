@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Support;
 
-use HetznerCloud\HttpClientUtilities\Enums\HttpMethod;
-use HetznerCloud\HttpClientUtilities\Enums\MediaType;
-use HetznerCloud\HttpClientUtilities\Support\ClientRequestBuilder;
+use Wrapkit\Enums\HttpMethod;
+use Wrapkit\Enums\MediaType;
+use Wrapkit\Support\ClientRequestBuilder;
 
 covers(ClientRequestBuilder::class);
 

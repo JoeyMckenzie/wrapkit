@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Testing\Concerns;
+namespace Wrapkit\Testing\Concerns;
 
-use HetznerCloud\HttpClientUtilities\Testing\AbstractDataFixture;
+use Wrapkit\Testing\AbstractDataFixture;
 
 /**
  * @template-covariant TData of array

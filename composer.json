@@ -1,11 +1,15 @@
 {
-    "name": "hetzner-cloud-php/http-client-utilities",
+    "name": "joeymckenzie/wrapkit",
     "description": "A utility package for connecting to HTTP APIs with PHP.",
+    "keywords": [
+        "http-client",
+        "api-wrapper"
+    ],
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "HetznerCloud\\HttpClientUtilities\\": "src/"
+            "Wrapkit\\": "src/"
         }
     },
     "autoload-dev": {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Enums;
+namespace Wrapkit\Enums;
 
 /**
  * Represents various media types to be used in headers for expected/received responses.

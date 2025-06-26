@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Support;
+namespace Wrapkit\Support;
 
-use HetznerCloud\HttpClientUtilities\Enums\HttpMethod;
-use HetznerCloud\HttpClientUtilities\Enums\MediaType;
-use HetznerCloud\HttpClientUtilities\ValueObjects\BaseUri;
+use Wrapkit\Enums\HttpMethod;
+use Wrapkit\Enums\MediaType;
+use Wrapkit\ValueObjects\BaseUri;
 use Http\Discovery\Psr17Factory;
 use Psr\Http\Message\RequestInterface;
 

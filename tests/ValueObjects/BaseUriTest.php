@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\ValueObjects;
 
-use HetznerCloud\HttpClientUtilities\ValueObjects\BaseUri;
+use Wrapkit\ValueObjects\BaseUri;
 use Stringable;
 
 covers(BaseUri::class);

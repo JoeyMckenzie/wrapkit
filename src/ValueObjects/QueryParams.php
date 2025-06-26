@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\ValueObjects;
+namespace Wrapkit\ValueObjects;
 
-use HetznerCloud\HttpClientUtilities\Contracts\Concerns\Arrayable;
+use Wrapkit\Contracts\Concerns\Arrayable;
 use Override;
 
 /**

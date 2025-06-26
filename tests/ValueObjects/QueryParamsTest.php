@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\ValueObjects;
 
-use HetznerCloud\HttpClientUtilities\ValueObjects\QueryParams;
+use Wrapkit\ValueObjects\QueryParams;
 
 covers(QueryParams::class);
 

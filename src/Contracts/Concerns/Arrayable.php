@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Contracts\Concerns;
+namespace Wrapkit\Contracts\Concerns;
 
 /**
  * Provides a contract to allow resources and objects to be displayed as an array representation.

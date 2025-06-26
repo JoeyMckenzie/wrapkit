@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Support;
+namespace Wrapkit\Support;
 
-use HetznerCloud\HttpClientUtilities\Contracts\ResponseValidatorContract;
-use HetznerCloud\HttpClientUtilities\Exceptions\UnserializableResponseException;
+use Wrapkit\Contracts\ResponseValidatorContract;
+use Wrapkit\Exceptions\UnserializableResponseException;
 use JsonException;
 use Psr\Http\Message\ResponseInterface;
 

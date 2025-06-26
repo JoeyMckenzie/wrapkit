@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\ValueObjects;
 
-use HetznerCloud\HttpClientUtilities\ValueObjects\Response;
+use Wrapkit\ValueObjects\Response;
 use stdClass;
 
 covers(Response::class);

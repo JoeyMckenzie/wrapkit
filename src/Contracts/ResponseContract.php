@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Contracts;
+namespace Wrapkit\Contracts;
 
 use ArrayAccess;
-use HetznerCloud\HttpClientUtilities\Contracts\Concerns\Arrayable;
+use Wrapkit\Contracts\Concerns\Arrayable;
 
 /**
  * Response contracts provide a set of methods allowing responses to be interacted with in a PHP array-like manner.

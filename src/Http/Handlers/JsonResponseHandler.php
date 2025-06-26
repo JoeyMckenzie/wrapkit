@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Http\Handlers;
+namespace Wrapkit\Http\Handlers;
 
-use HetznerCloud\HttpClientUtilities\Contracts\ResponseHandlerContract;
-use HetznerCloud\HttpClientUtilities\Exceptions\UnserializableResponseException;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Response;
+use Wrapkit\Contracts\ResponseHandlerContract;
+use Wrapkit\Exceptions\UnserializableResponseException;
+use Wrapkit\ValueObjects\Response;
 use JsonException;
 use Psr\Http\Message\ResponseInterface;
 

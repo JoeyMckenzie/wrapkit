@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\ValueObjects;
 
-use HetznerCloud\HttpClientUtilities\Enums\MediaType;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Headers;
+use Wrapkit\Enums\MediaType;
+use Wrapkit\ValueObjects\Headers;
 
 covers(Headers::class);
 

@@ -1,4 +1,4 @@
-name: run-ci
+name: Run CI
 
 on:
   push:
@@ -11,42 +11,46 @@ on:
       - 'composer.lock'
 
 jobs:
-  test:
+  ci:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 5
     strategy:
       fail-fast: true
       matrix:
-        os: [ ubuntu-latest, windows-latest ]
+        os: [ ubuntu-latest ]
         php: [ 8.4 ]
-        stability: [ prefer-stable ]
+        laravel: [ 12.* ]
+        stability: [ prefer-lowest, prefer-stable ]
+        include:
+          - laravel: 12.*
+            testbench: 10.*
 
-    name: php ${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
+    name: PHP ${{ matrix.php }} | Laravel ${{ matrix.laravel }} | ${{ matrix.stability }} | ${{ matrix.os }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
+          tools: composer:v2
           coverage: xdebug
 
-      - name: Install composer dependencies
-        run: |
-          composer require --no-interaction --no-update
-          composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+      - name: Run CI checks
+        run: bin/ci
+        working-directory: ${{ github.workspace }}
 
-      - name: List Installed Dependencies
-        run: composer show -D
+      - name: Upload coverage reports to Codecov
+        # Only need to upload code coverage once
+        if: ${{ !cancelled() && matrix.php == '8.4' && matrix.stability == 'prefer-stable' && github.ref == 'refs/heads/main' }}
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Install Aspell (Ubuntu)
-        if: runner.os == 'Linux'
-        shell: bash
-        run: sudo apt-get update && sudo apt-get install -y aspell aspell-en
-
-      - name: Run CI
-        run: composer run ci
-        env:
-          LANG: en_US.UTF-8
+      - name: Upload test results to Codecov
+        # Only need to upload code coverage once
+        if: ${{ !cancelled() && matrix.php == '8.4' && matrix.stability == 'prefer-stable' && github.ref == 'refs/heads/main' }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

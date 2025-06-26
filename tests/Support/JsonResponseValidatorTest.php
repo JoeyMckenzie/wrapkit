@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Support;
 
 use GuzzleHttp\Psr7\Response as PsrResponse;
-use HetznerCloud\HttpClientUtilities\Enums\MediaType;
-use HetznerCloud\HttpClientUtilities\Exceptions\UnserializableResponseException;
-use HetznerCloud\HttpClientUtilities\Support\JsonResponseValidator;
+use Wrapkit\Enums\MediaType;
+use Wrapkit\Exceptions\UnserializableResponseException;
+use Wrapkit\Support\JsonResponseValidator;
 
 describe(JsonResponseValidator::class, function (): void {
     beforeEach(function (): void {

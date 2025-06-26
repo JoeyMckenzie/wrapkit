@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Http;
+namespace Wrapkit\Http;
 
-use HetznerCloud\HttpClientUtilities\Contracts\ConnectorContract;
-use HetznerCloud\HttpClientUtilities\Contracts\ResponseHandlerContract;
-use HetznerCloud\HttpClientUtilities\Support\ClientRequestBuilder;
-use HetznerCloud\HttpClientUtilities\ValueObjects\BaseUri;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Headers;
-use HetznerCloud\HttpClientUtilities\ValueObjects\QueryParams;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Response;
+use Wrapkit\Contracts\ConnectorContract;
+use Wrapkit\Contracts\ResponseHandlerContract;
+use Wrapkit\Support\ClientRequestBuilder;
+use Wrapkit\ValueObjects\BaseUri;
+use Wrapkit\ValueObjects\Headers;
+use Wrapkit\ValueObjects\QueryParams;
+use Wrapkit\ValueObjects\Response;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;

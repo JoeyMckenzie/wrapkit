@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Enums;
+namespace Wrapkit\Enums;
 
 /**
  * Represents various HTTP methods utilized for sending requests.

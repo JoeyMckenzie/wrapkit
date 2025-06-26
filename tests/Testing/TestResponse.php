@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Testing;
 
-use HetznerCloud\HttpClientUtilities\Contracts\ResponseContract;
-use HetznerCloud\HttpClientUtilities\Responses\Concerns\ArrayAccessible;
+use Wrapkit\Contracts\ResponseContract;
+use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
  * @phpstan-type TestResponseSchema array{foo: string}

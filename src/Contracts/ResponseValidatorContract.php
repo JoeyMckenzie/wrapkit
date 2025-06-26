@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Contracts;
+namespace Wrapkit\Contracts;
 
 use Psr\Http\Message\ResponseInterface;
 

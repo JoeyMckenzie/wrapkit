@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Responses\Concerns;
+namespace Wrapkit\Responses\Concerns;
 
 use BadMethodCallException;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Response;
+use Wrapkit\ValueObjects\Response;
 
 /**
  * Allows API responses to be treated as arrays, allowing for access through an index to check for properties and values.

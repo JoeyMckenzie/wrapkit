@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Contracts;
+namespace Wrapkit\Contracts;
 
-use HetznerCloud\HttpClientUtilities\Support\ClientRequestBuilder;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Response;
+use Wrapkit\Support\ClientRequestBuilder;
+use Wrapkit\ValueObjects\Response;
 use Psr\Http\Message\ResponseInterface;
 
 /**

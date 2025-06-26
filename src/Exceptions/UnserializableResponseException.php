@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Exceptions;
+namespace Wrapkit\Exceptions;
 
 use Exception;
 use JsonException;

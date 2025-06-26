@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\ValueObjects;
+namespace Wrapkit\ValueObjects;
 
 use Override;
 use Stringable;

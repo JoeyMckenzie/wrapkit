@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Testing;
 
 use Exception;
-use HetznerCloud\HttpClientUtilities\Contracts\ResponseContract;
-use HetznerCloud\HttpClientUtilities\Testing\ClientProxyFake;
-use HetznerCloud\HttpClientUtilities\Testing\TestRequest;
+use Wrapkit\Contracts\ResponseContract;
+use Wrapkit\Testing\ClientProxyFake;
+use Wrapkit\Testing\TestRequest;
 use PHPUnit\Framework\ExpectationFailedException;
 
 covers(ClientProxyFake::class);

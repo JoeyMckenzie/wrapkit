@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Testing;
+namespace Wrapkit\Testing;
 
 use Exception;
-use HetznerCloud\HttpClientUtilities\Contracts\ResponseContract;
+use Wrapkit\Contracts\ResponseContract;
 use PHPUnit\Framework\Assert as PHPUnit;
 use Throwable;
 

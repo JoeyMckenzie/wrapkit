@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Contracts;
+namespace Wrapkit\Contracts;
 
-use HetznerCloud\HttpClientUtilities\Exceptions\UnserializableResponseException;
-use HetznerCloud\HttpClientUtilities\ValueObjects\Response;
+use Wrapkit\Exceptions\UnserializableResponseException;
+use Wrapkit\ValueObjects\Response;
 use Psr\Http\Message\ResponseInterface;
 
 interface ResponseHandlerContract

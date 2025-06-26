@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace HetznerCloud\HttpClientUtilities\Testing\Concerns;
+namespace Wrapkit\Testing\Concerns;
 
-use HetznerCloud\HttpClientUtilities\Contracts\ResponseContract;
-use HetznerCloud\HttpClientUtilities\Testing\ClientProxyFake;
-use HetznerCloud\HttpClientUtilities\Testing\TestRequest;
+use Wrapkit\Contracts\ResponseContract;
+use Wrapkit\Testing\ClientProxyFake;
+use Wrapkit\Testing\TestRequest;
 use RuntimeException;
 
 /**
