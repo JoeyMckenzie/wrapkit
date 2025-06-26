@@ -34,9 +34,9 @@
         "psr/http-message": "^2.0"
     },
     "require-dev": {
-        "pestphp/pest": "^3.7",
-        "rector/rector": "^2.0",
-        "laravel/pint": "^1.19",
+        "pestphp/pest": "^3.8",
+        "rector/rector": "^2.1",
+        "laravel/pint": "^1.22",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpstan/phpstan-deprecation-rules": "^2.0",
@@ -46,24 +46,25 @@
         "vlucas/phpdotenv": "^5.6",
         "mockery/mockery": "^1.6",
         "pestphp/pest-plugin-watch": "^3.0",
-        "peckphp/peck": "^0.1"
+        "peckphp/peck": "^0.1.3",
+        "pestphp/pest-plugin-type-coverage": "^3.5"
     },
     "scripts": {
         "prepare": "git config core.hookspath .githooks",
-        "test:unit": "vendor/bin/pest --parallel",
-        "test:uwatch": "vendor/bin/pest --parallel --watch",
+        "test": "vendor/bin/pest --parallel",
+        "test:watch": "vendor/bin/pest --parallel --watch",
         "test:coverage": "vendor/bin/pest --coverage --parallel",
-        "test:watch": "vendor/bin/pest --watch --parallel --mutate",
-        "test:types": "vendor/bin/pest --type-coverage --min=100 --parallel",
+        "test:watchmu": "vendor/bin/pest --watch --parallel --mutate",
+        "test:types": "vendor/bin/pest --type-coverage --min=100",
         "test:mutate": "vendor/bin/pest --mutate --min=100 --parallel",
-        "test:ci": "vendor/bin/pest --mutate --min=100 --parallel --ci",
-        "test": [
-            "@test:mutate"
+        "test:ci": [
+            "@test:coverage",
+            "@test:mutate",
+            "@test:types"
         ],
         "fmt": "vendor/bin/pint",
         "fmt:test": "vendor/bin/pint --test",
-        "lint": "vendor/bin/phpstan analyze",
-        "lint:watch": "find src phpstan.neon.dist | entr -s \"composer run lint\"",
+        "lint": "XDEBUG_MODE=off vendor/bin/phpstan analyze",
         "lint:clear": "vendor/bin/phpstan clear-result-cache",
         "refactor": "vendor/bin/rector process",
         "refactor:test": "vendor/bin/rector process --dry-run",

@@ -7,6 +7,9 @@
             "chainable",
             "unserializable",
             "args"
+        ],
+        "paths": [
+            "tests"
         ]
     }
 }
