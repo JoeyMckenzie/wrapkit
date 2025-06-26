@@ -53,10 +53,11 @@
         "prepare": "git config core.hookspath .githooks",
         "test": "vendor/bin/pest --parallel",
         "test:watch": "vendor/bin/pest --parallel --watch",
-        "test:coverage": "vendor/bin/pest --coverage --parallel",
+        "test:coverage": "vendor/bin/pest --coverage-clover coverage.xml --parallel",
         "test:watchmu": "vendor/bin/pest --watch --parallel --mutate",
         "test:types": "vendor/bin/pest --type-coverage --min=100",
         "test:mutate": "vendor/bin/pest --mutate --min=100 --parallel",
+        "test:mutate:cache-clear": "vendor/bin/pest --mutate --min=100 --clear-cache",
         "test:ci": [
             "@test:coverage",
             "@test:mutate",
@@ -66,6 +67,7 @@
         "fmt:test": "vendor/bin/pint --test",
         "lint": "XDEBUG_MODE=off vendor/bin/phpstan analyze",
         "lint:clear": "vendor/bin/phpstan clear-result-cache",
+        "lint:ci": "XDEBUG_MODE=off vendor/bin/phpstan analyze --error-format=github",
         "refactor": "vendor/bin/rector process",
         "refactor:test": "vendor/bin/rector process --dry-run",
         "typos": "vendor/bin/peck",
@@ -85,7 +87,7 @@
             "@check"
         ],
         "ci": [
-            "@lint",
+            "@lint:ci",
             "@fmt:test",
             "@refactor:test",
             "@test:ci",
