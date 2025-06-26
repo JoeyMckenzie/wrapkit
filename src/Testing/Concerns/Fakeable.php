@@ -36,12 +36,16 @@ trait Fakeable
         $new = [];
 
         foreach ($original as $key => $entry) {
-            /** @var mixed $value */
-            $value = $override[$key] ?? null;
+            if (array_key_exists($key, $override) && $override[$key] === null) {
+                $new[$key] = null;
+            } else {
+                /** @var mixed $value */
+                $value = $override[$key] ?? null;
 
-            $new[$key] = is_array($entry) && is_array($value)
-                ? self::buildAttributes($entry, $value)
-                : ($value ?? $entry);
+                $new[$key] = is_array($entry) && is_array($value)
+                    ? self::buildAttributes($entry, $value)
+                    : ($value ?? $entry);
+            }
 
             unset($override[$key]);
         }
