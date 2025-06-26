@@ -12,57 +12,57 @@ covers(BaseUri::class);
 describe(BaseUri::class, function (): void {
     it('adds https protocol and trailing slash when no protocol is provided', function (): void {
         // Arrange
-        $rawUri = 'hetzner.cloud';
+        $rawUri = 'wrapkit';
 
         // Act
         $baseUri = BaseUri::from($rawUri);
 
         // Assert
-        expect((string) $baseUri)->toBe('https://hetzner.cloud/');
+        expect((string) $baseUri)->toBe('https://wrapkit/');
     });
 
     it('preserves http protocol and adds trailing slash', function (): void {
         // Arrange
-        $rawUri = 'http://hetzner.cloud';
+        $rawUri = 'http://wrapkit';
 
         // Act
         $baseUri = BaseUri::from($rawUri);
 
         // Assert
-        expect((string) $baseUri)->toBe('http://hetzner.cloud/');
+        expect((string) $baseUri)->toBe('http://wrapkit/');
     });
 
     it('preserves https protocol and adds trailing slash', function (): void {
         // Arrange
-        $rawUri = 'https://hetzner.cloud';
+        $rawUri = 'https://wrapkit';
 
         // Act
         $baseUri = BaseUri::from($rawUri);
 
         // Assert
-        expect((string) $baseUri)->toBe('https://hetzner.cloud/');
+        expect((string) $baseUri)->toBe('https://wrapkit/');
     });
 
     it('handles domains with existing trailing slash', function (): void {
         // Arrange
-        $rawUri = 'hetzner.cloud/';
+        $rawUri = 'wrapkit/';
 
         // Act
         $baseUri = BaseUri::from($rawUri);
 
         // Assert
-        expect((string) $baseUri)->toBe('https://hetzner.cloud/');
+        expect((string) $baseUri)->toBe('https://wrapkit/');
     });
 
     it('handles domains with subdirectories', function (): void {
         // Arrange
-        $rawUri = 'hetzner.cloud/api/v1';
+        $rawUri = 'wrapkit/api/v1';
 
         // Act
         $baseUri = BaseUri::from($rawUri);
 
         // Assert
-        expect((string) $baseUri)->toBe('https://hetzner.cloud/api/v1/');
+        expect((string) $baseUri)->toBe('https://wrapkit/api/v1/');
     });
 
     it('handles domains with port numbers', function (): void {
@@ -79,15 +79,15 @@ describe(BaseUri::class, function (): void {
     describe('string conversion', function (): void {
         it('implements Stringable interface correctly', function (): void {
             // Arrange
-            $baseUri = BaseUri::from('hetzner.cloud');
+            $baseUri = BaseUri::from('wrapkit');
 
             // Act
             $toString = $baseUri->__toString();
             $castString = (string) $baseUri;
 
             // Assert
-            expect($toString)->toBe('https://hetzner.cloud/')
-                ->and($castString)->toBe('https://hetzner.cloud/')
+            expect($toString)->toBe('https://wrapkit/')
+                ->and($castString)->toBe('https://wrapkit/')
                 ->and($baseUri)->toBeInstanceOf(Stringable::class);
         });
     });

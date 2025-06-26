@@ -56,7 +56,7 @@ describe(ClientProxyFake::class, function (): void {
     it('throws when no fake responses are available', function (): void {
         $proxy = new ClientProxyFake;
 
-        expect(fn (): \HetznerCloud\HttpClientUtilities\Contracts\ResponseContract => $proxy->record(new TestRequest('servers', 'GET', [])))
+        expect(fn (): ResponseContract => $proxy->record(new TestRequest('servers', 'GET', [])))
             ->toThrow(Exception::class, 'No fake responses left.');
     });
 
@@ -78,7 +78,7 @@ describe(ClientProxyFake::class, function (): void {
         $exception = new Exception('API Error');
         $proxy = new ClientProxyFake([$exception]);
 
-        expect(fn (): \HetznerCloud\HttpClientUtilities\Contracts\ResponseContract => $proxy->record(new TestRequest('servers', 'GET', [])))
+        expect(fn (): ResponseContract => $proxy->record(new TestRequest('servers', 'GET', [])))
             ->toThrow(Exception::class, 'API Error');
     });
 
@@ -97,7 +97,7 @@ describe(ClientProxyFake::class, function (): void {
             $proxy = new ClientProxyFake([new TestResponse]);
             $proxy->record(new TestRequest('servers', 'GET', []));
 
-            expect(fn (): \HetznerCloud\HttpClientUtilities\Contracts\ResponseContract => $proxy->record(new TestRequest('volumes', 'POST', [])))
+            expect(fn (): ResponseContract => $proxy->record(new TestRequest('volumes', 'POST', [])))
                 ->toThrow(Exception::class, 'No fake responses left.');
         });
 

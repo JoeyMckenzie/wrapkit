@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 arch('All source files are strictly typed')
-    ->expect('HetznerCloud\\HttpClientUtilities\\')
+    ->expect('Wrapkit\\')
     ->toUseStrictTypes();
 
 arch('All tests files are strictly typed')
@@ -13,15 +13,15 @@ arch('All tests files are strictly typed')
     ->toUseStrictTypes();
 
 arch('Value objects should be immutable')
-    ->expect('HetznerCloud\\HttpClientUtilities\\ValueObjects\\')
+    ->expect('Wrapkit\\ValueObjects\\')
     ->toBeFinal()
-    ->and('HetznerCloud\\HttpClientUtilities\\ValueObjects\\')
+    ->and('Wrapkit\\ValueObjects\\')
     ->toBeReadonly();
 
 arch('Contracts should be abstract')
-    ->expect('HetznerCloud\\HttpClientUtilities\\Contracts\\')
+    ->expect('Wrapkit\\Contracts\\')
     ->toBeInterfaces();
 
 arch('All Enums are backed')
-    ->expect('HetznerCloud\\HttpClientUtilities\\Enums\\')
+    ->expect('Wrapkit\\Enums\\')
     ->toBeStringBackedEnums();

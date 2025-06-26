@@ -21,7 +21,7 @@ covers(Connector::class);
 describe(Connector::class, function (): void {
     beforeEach(function (): void {
         $this->client = mock(ClientInterface::class);
-        $this->baseUri = BaseUri::from('api.hetzner.cloud/v1');
+        $this->baseUri = BaseUri::from('api.test/v1');
         $this->headers = Headers::create()->withAccessToken('test-token');
         $this->queryParams = QueryParams::create()->withParam('version', '2023-01-01');
         $this->responseHandler = mock(ResponseHandlerContract::class);
@@ -45,7 +45,7 @@ describe(Connector::class, function (): void {
             $this->client
                 ->shouldReceive('sendRequest')
                 ->once()
-                ->withArgs(fn (RequestInterface $request): bool => $request->getUri()->getHost() === 'api.hetzner.cloud'
+                ->withArgs(fn (RequestInterface $request): bool => $request->getUri()->getHost() === 'api.test'
                     && $request->getHeaderLine('Authorization') === 'Bearer test-token'
                     && str_contains($request->getUri()->getQuery(), 'version=2023-01-01'))
                 ->andReturn($psrResponse);
@@ -75,7 +75,7 @@ describe(Connector::class, function (): void {
             $this->client
                 ->shouldReceive('sendRequest')
                 ->once()
-                ->withArgs(fn (RequestInterface $request): bool => $request->getUri()->getHost() === 'api.hetzner.cloud'
+                ->withArgs(fn (RequestInterface $request): bool => $request->getUri()->getHost() === 'api.test'
                     && $request->getHeaderLine('Authorization') === 'Bearer test-token'
                     && str_contains($request->getUri()->getQuery(), 'version=2023-01-01'))
                 ->andReturn($psrResponse);
