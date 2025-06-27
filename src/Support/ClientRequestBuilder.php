@@ -58,6 +58,14 @@ final class ClientRequestBuilder
     }
 
     /**
+     * Creates a new builder instance for a POST request.
+     */
+    public static function patch(string $resource): self
+    {
+        return new self(HttpMethod::PATCH, $resource, MediaType::JSON)->withContentType(MediaType::JSON);
+    }
+
+    /**
      * Creates a new builder instance for a PUT request.
      */
     public static function put(string $resource, ?string $suffix = null): self
