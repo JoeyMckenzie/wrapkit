@@ -34,11 +34,8 @@ trait Testable
     }
 
     /**
-     * @template TResponse of ResponseContract
-     *
      * @param  list<mixed>  $args
-     * @param  class-string<TResponse>  $expectedType
-     * @return TResponse
+     * @param  class-string<ResponseContract|ResponseInterface>  $expectedType
      */
     protected function record(string $method, array $args = [], string $expectedType = ResponseContract::class): ResponseContract|ResponseInterface
     {
