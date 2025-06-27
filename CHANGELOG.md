@@ -1,5 +1,13 @@
 d# Changelog
 
+## 0.1.14 - 2025-06-27
+
+### What's new?
+
+- Adds PATCH support to the client builder
+
+**Full Changelog**: https://github.com/JoeyMckenzie/wrapkit/compare/0.1.13...0.1.14
+
 ## 0.1.13 - 2025-06-26
 
 ### What's new?
