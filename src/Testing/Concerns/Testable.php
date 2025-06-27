@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Wrapkit\Testing\Concerns;
 
+use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Testing\ClientProxyFake;
@@ -16,8 +17,9 @@ use Wrapkit\Testing\TestRequest;
  */
 trait Testable
 {
-    public function __construct(private readonly ClientProxyFake $proxy)
-    {
+    public function __construct(
+        private readonly ClientProxyFake $proxy
+    ) {
         //
     }
 
@@ -38,7 +40,7 @@ trait Testable
      * @param  class-string<TResponse>  $expectedType
      * @return TResponse
      */
-    protected function record(string $method, array $args = [], string $expectedType = ResponseContract::class): ResponseContract
+    protected function record(string $method, array $args = [], string $expectedType = ResponseContract::class): ResponseContract|ResponseInterface
     {
         $response = $this->proxy->record(new TestRequest($this->resource(), $method, $args));
 

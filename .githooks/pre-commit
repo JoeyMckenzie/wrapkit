@@ -2,7 +2,8 @@
 
 set -ex
 
-composer run fix
+composer fix
+composer test
 
 if [ -n "$(git diff --name-only)" ]; then
     git add .

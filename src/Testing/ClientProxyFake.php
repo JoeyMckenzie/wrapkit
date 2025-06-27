@@ -6,6 +6,7 @@ namespace Wrapkit\Testing;
 
 use Exception;
 use PHPUnit\Framework\Assert as PHPUnit;
+use Psr\Http\Message\ResponseInterface;
 use Throwable;
 use Wrapkit\Contracts\ResponseContract;
 
@@ -17,12 +18,13 @@ final class ClientProxyFake
     private array $requests = [];
 
     /**
-     * @template TResponse of ResponseContract<array<array-key, mixed>>
+     * @template TResponse of ResponseContract<array<array-key, mixed>>|ResponseInterface
      *
      * @param  array<int, TResponse|Throwable>  $responses
      */
-    public function __construct(private array $responses = [])
-    {
+    public function __construct(
+        private array $responses = []
+    ) {
         //
     }
 
@@ -93,9 +95,9 @@ final class ClientProxyFake
     }
 
     /**
-     * @return ResponseContract<array<array-key, mixed>>
+     * @return ResponseContract<array<array-key, mixed>>|ResponseInterface
      */
-    public function record(TestRequest $request): ResponseContract
+    public function record(TestRequest $request): ResponseContract|ResponseInterface
     {
         $this->requests[] = $request;
         $response = array_shift($this->responses);

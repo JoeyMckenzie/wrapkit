@@ -67,7 +67,7 @@ fi
 
 info "Running CI checks..."
 
-composer run ci
+composer ci
 
 info "Auditing dependencies..."
 
