@@ -1,5 +1,13 @@
 d# Changelog
 
+## 0.1.15 - 2025-06-27
+
+### What's new?
+
+- Adds support for `Testable` trait `ResponseInterface` fake responses
+
+**Full Changelog**: https://github.com/JoeyMckenzie/wrapkit/compare/0.1.14...0.1.15
+
 ## 0.1.14 - 2025-06-27
 
 ### What's new?
