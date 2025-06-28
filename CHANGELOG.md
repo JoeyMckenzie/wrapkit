@@ -1,5 +1,13 @@
 d# Changelog
 
+## 0.1.16 - 2025-06-27
+
+### What's new?
+
+- Fixes an issue with generic return types on the `Testable` trait
+
+**Full Changelog**: https://github.com/JoeyMckenzie/wrapkit/compare/0.1.15...0.1.16
+
 ## 0.1.15 - 2025-06-27
 
 ### What's new?
