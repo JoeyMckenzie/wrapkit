@@ -13,7 +13,7 @@ use Wrapkit\Testing\TestRequest;
 /**
  * @template TArray of array
  *
- * @requires-method class-string resource()
+ * @property-read class-string $resource
  */
 trait Testable
 {
@@ -25,12 +25,12 @@ trait Testable
 
     public function assertSent(?callable $callback = null): void
     {
-        $this->proxy->assertSent($this->resource(), $callback);
+        $this->proxy->assertSent($this->resource, $callback);
     }
 
     public function assertNotSent(?callable $callback = null): void
     {
-        $this->proxy->assertNotSent($this->resource(), $callback);
+        $this->proxy->assertNotSent($this->resource, $callback);
     }
 
     /**
@@ -39,7 +39,7 @@ trait Testable
      */
     protected function record(string $method, array $args = [], string $expectedType = ResponseContract::class): ResponseContract|ResponseInterface
     {
-        $response = $this->proxy->record(new TestRequest($this->resource(), $method, $args));
+        $response = $this->proxy->record(new TestRequest($this->resource, $method, $args));
 
         if (! $response instanceof $expectedType) {
             throw new RuntimeException(sprintf(
