@@ -1,5 +1,13 @@
 d# Changelog
 
+## 0.1.18 - 2025-07-03
+
+### What's new?
+
+- Removes the `ClientProxyFake` and refactors the functionality into a new `AssertsRequests` trait
+
+**Full Changelog**: https://github.com/JoeyMckenzie/wrapkit/compare/0.1.17...0.1.18
+
 ## 0.1.17 - 2025-06-28
 
 ### What's new?
