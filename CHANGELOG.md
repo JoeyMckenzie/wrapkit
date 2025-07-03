@@ -1,5 +1,13 @@
 d# Changelog
 
+## 0.1.17 - 2025-06-28
+
+### What's new?
+
+- Updates the `Testable` trait to use a hooked property for resources instead of a function
+
+**Full Changelog**: https://github.com/JoeyMckenzie/wrapkit/compare/0.1.16...0.1.17
+
 ## 0.1.16 - 2025-06-27
 
 ### What's new?
