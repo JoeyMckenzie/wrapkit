@@ -36,7 +36,7 @@
     "require-dev": {
         "pestphp/pest": "^3.8",
         "rector/rector": "^2.1",
-        "laravel/pint": "^1.22",
+        "laravel/pint": "^1.23",
         "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-strict-rules": "^2.0",
         "phpstan/phpstan-deprecation-rules": "^2.0",
@@ -63,8 +63,8 @@
             "@test:mutate",
             "@test:types"
         ],
-        "fmt": "vendor/bin/pint",
-        "fmt:test": "vendor/bin/pint --test",
+        "fmt": "vendor/bin/pint --parallel",
+        "fmt:test": "vendor/bin/pint --test --parallel",
         "lint": "XDEBUG_MODE=off vendor/bin/phpstan analyze",
         "lint:clear": "vendor/bin/phpstan clear-result-cache",
         "lint:ci": "XDEBUG_MODE=off vendor/bin/phpstan analyze --error-format=github",

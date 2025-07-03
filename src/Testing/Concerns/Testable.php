@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Wrapkit\Testing\Concerns;
 
+use Givebutter\Testing\ClientFake;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 use Wrapkit\Contracts\ResponseContract;
-use Wrapkit\Testing\ClientProxyFake;
 use Wrapkit\Testing\TestRequest;
 
 /**
@@ -18,19 +18,19 @@ use Wrapkit\Testing\TestRequest;
 trait Testable
 {
     public function __construct(
-        private readonly ClientProxyFake $proxy
+        private readonly ClientFake $fake
     ) {
         //
     }
 
     public function assertSent(?callable $callback = null): void
     {
-        $this->proxy->assertSent($this->resource, $callback);
+        $this->fake->assertSent($this->resource, $callback);
     }
 
     public function assertNotSent(?callable $callback = null): void
     {
-        $this->proxy->assertNotSent($this->resource, $callback);
+        $this->fake->assertNotSent($this->resource, $callback);
     }
 
     /**
@@ -39,7 +39,7 @@ trait Testable
      */
     protected function record(string $method, array $args = [], string $expectedType = ResponseContract::class): ResponseContract|ResponseInterface
     {
-        $response = $this->proxy->record(new TestRequest($this->resource, $method, $args));
+        $response = $this->fake->record(new TestRequest($this->resource, $method, $args));
 
         if (! $response instanceof $expectedType) {
             throw new RuntimeException(sprintf(

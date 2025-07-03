@@ -2,15 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Wrapkit\Testing;
+namespace Wrapkit\Testing\Concerns;
 
 use Exception;
 use PHPUnit\Framework\Assert as PHPUnit;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 use Wrapkit\Contracts\ResponseContract;
+use Wrapkit\Testing\TestRequest;
 
-final class ClientProxyFake
+/**
+ * @template TResponse of ResponseContract<array<array-key, mixed>>|ResponseInterface
+ */
+trait AssertsRequests // @phpstan-ignore-line trait.unused
 {
     /**
      * @var TestRequest[]
@@ -18,8 +22,6 @@ final class ClientProxyFake
     private array $requests = [];
 
     /**
-     * @template TResponse of ResponseContract<array<array-key, mixed>>|ResponseInterface
-     *
      * @param  array<int, TResponse|Throwable>  $responses
      */
     public function __construct(
@@ -29,8 +31,6 @@ final class ClientProxyFake
     }
 
     /**
-     * @template TResponse of ResponseContract<array<array-key, mixed>>
-     *
      * @param  array<int, TResponse|Throwable>  $responses
      */
     public function addResponses(array $responses): void
@@ -96,6 +96,8 @@ final class ClientProxyFake
 
     /**
      * @return ResponseContract<array<array-key, mixed>>|ResponseInterface
+     *
+     * @throws Throwable
      */
     public function record(TestRequest $request): ResponseContract|ResponseInterface
     {

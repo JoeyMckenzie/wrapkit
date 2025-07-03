@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Testing;
+namespace Tests\Stubs;
 
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
